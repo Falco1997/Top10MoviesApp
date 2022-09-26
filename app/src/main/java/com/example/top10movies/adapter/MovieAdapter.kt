@@ -1,5 +1,6 @@
 package com.example.top10movies.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +14,7 @@ import com.example.top10movies.util.Constants
 import com.example.top10movies.util.Constants.Companion.IMAGE_URL_BEGINNING
 import com.example.top10movies.util.Constants.Companion.IMAGE_URL_END
 
-class MovieAdapter(
-    var movies: List<Movie>
-) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -39,6 +38,7 @@ class MovieAdapter(
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = differ.currentList[position]
         holder.itemView.apply {
+            Log.d("debug", IMAGE_URL_BEGINNING + movie.id + IMAGE_URL_END)
             Glide.with(this)
                 .load(IMAGE_URL_BEGINNING + movie.id + IMAGE_URL_END)
                 .into(findViewById(R.id.movieImage))
