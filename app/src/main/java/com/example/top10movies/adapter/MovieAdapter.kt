@@ -51,7 +51,8 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return differ.currentList.size
+        //return differ.currentList.size
+        return 1
     }
 
     private var onItemClickListener: ((Movie) -> Unit)? = null
