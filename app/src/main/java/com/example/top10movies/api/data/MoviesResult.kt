@@ -4,8 +4,8 @@ import com.example.top10movies.api.data.Movie
 import com.google.gson.annotations.SerializedName
 
 data class MoviesResult(
-    @SerializedName("") val page: Int,
-    @SerializedName("") val movies: List<Movie>,
-    @SerializedName("") val total_pages: Int,
-    @SerializedName("") val total_results: Int
+    @SerializedName("page") val page: Int,
+    @SerializedName("results") val movies: List<Movie>,
+    @SerializedName("total_pages") val total_pages: Int,
+    @SerializedName("total_results") val total_results: Int
 )

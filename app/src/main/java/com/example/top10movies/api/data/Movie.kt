@@ -3,19 +3,19 @@ package com.example.top10movies.api.data
 import com.google.gson.annotations.SerializedName
 
 data class Movie(
-    @SerializedName("") val adult: Boolean,
-    @SerializedName("") val backdrop_path: String,
-    @SerializedName("") val genre_ids: List<Int>,
-    @SerializedName("") val id: Int,
-    @SerializedName("") val media_type: String,
-    @SerializedName("") val original_language: String,
-    @SerializedName("") val original_title: String,
-    @SerializedName("") val overview: String,
-    @SerializedName("") val popularity: Double,
-    @SerializedName("") val poster_path: String,
-    @SerializedName("") val release_date: String,
-    @SerializedName("") val title: String,
-    @SerializedName("") val video: Boolean,
-    @SerializedName("") val vote_average: Double,
-    @SerializedName("") val vote_count: Int
+    @SerializedName("adult") val adult: Boolean,
+    @SerializedName("backdrop_path") val backdrop_path: String,
+    @SerializedName("genre_ids") val genre_ids: List<Int>,
+    @SerializedName("id") val id: Int,
+    @SerializedName("media_type") val media_type: String,
+    @SerializedName("original_language") val original_language: String,
+    @SerializedName("original_title") val original_title: String,
+    @SerializedName("overview") val overview: String,
+    @SerializedName("popularity") val popularity: Double,
+    @SerializedName("poster_path") val poster_path: String,
+    @SerializedName("release_date") val release_date: String,
+    @SerializedName("title") val title: String,
+    @SerializedName("video") val video: Boolean,
+    @SerializedName("vote_average") val vote_average: Double,
+    @SerializedName("vote_count") val vote_count: Int
 )

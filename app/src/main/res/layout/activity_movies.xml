@@ -13,4 +13,9 @@
         android:layout_margin="4dp"
         tools:listitem="@layout/movieimage"/>
 
+    <ImageView
+        android:id="@+id/imageTEST"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
