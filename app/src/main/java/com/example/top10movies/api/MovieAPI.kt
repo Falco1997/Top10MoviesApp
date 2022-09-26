@@ -1,6 +1,6 @@
 package com.example.top10movies.api
 
-import com.example.top10movies.api.data.GetMoviesResult
+import com.example.top10movies.api.data.MoviesResult
 import com.example.top10movies.util.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
@@ -12,6 +12,6 @@ interface MovieAPI {
     suspend fun getTrendingMovies(
         @Query("apiKey")
         apiKey: String = API_KEY
-    ): Response<GetMoviesResult>
+    ): Response<MoviesResult>
 
 }
