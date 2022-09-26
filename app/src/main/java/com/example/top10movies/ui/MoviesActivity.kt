@@ -27,21 +27,22 @@ class MoviesActivity : AppCompatActivity() {
         binding = ActivityMoviesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+/*
         Glide.with(this)
             .load("https://picsum.photos/300")
             .fitCenter()
-            .into(binding.imageTEST)
-
+            .into(binding)
+*/
         val movieRepo = MovieRepo()
         val viewModelProviderFactory = MovieViewModelProviderFactory(movieRepo)
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[MovieViewModel::class.java]
-        /*
+
         viewModel.trendingMovies.observe(this, Observer { response ->
             when(response) {
                 is Resource.Success -> {
                     hideLoadingBar()
                     response.data?.let { movieResponse ->
-                        //movieAdapter.differ.submitList(newsResponse.articles)
+
                     }
                 }
                 is Resource.Error -> {
@@ -56,7 +57,6 @@ class MoviesActivity : AppCompatActivity() {
             }
 
         })
-        */
     }
 
     private fun setupRecyclerView() {
