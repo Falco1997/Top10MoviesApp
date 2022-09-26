@@ -28,17 +28,18 @@ class MoviesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMoviesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupRecyclerView()
 
         val movieRepo = MovieRepo()
         val viewModelProviderFactory = MovieViewModelProviderFactory(movieRepo)
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[MovieViewModel::class.java]
 
         viewModel.trendingMovies.observe(this, Observer { response ->
-            when(response) {
+            when (response) {
                 is Resource.Success -> {
                     hideLoadingBar()
                     response.data?.let { movieResponse ->
-                        setupRecyclerView()
+                        movieAdapter.differ.submitList(movieResponse.movies)
                     }
                 }
                 is Resource.Error -> {
