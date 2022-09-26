@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.top10movies.api.data.Movie
 import com.example.top10movies.api.data.MoviesResult
 import com.example.top10movies.repo.MovieRepo
 import com.example.top10movies.util.Constants.Companion.API_KEY

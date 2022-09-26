@@ -11,13 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.top10movies.R
 import com.example.top10movies.api.data.Movie
-import com.example.top10movies.databinding.ActivityMoviesBinding
-import com.example.top10movies.ui.MoviesActivity
-import com.example.top10movies.util.Constants
 import com.example.top10movies.util.Constants.Companion.GLIDE_BASE_URL
-import com.example.top10movies.util.Constants.Companion.IMAGE_URL_BEGINNING
-import com.example.top10movies.util.Constants.Companion.IMAGE_URL_END
-import com.squareup.picasso.Picasso
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
