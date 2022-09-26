@@ -14,8 +14,10 @@ import com.example.top10movies.api.data.Movie
 import com.example.top10movies.databinding.ActivityMoviesBinding
 import com.example.top10movies.ui.MoviesActivity
 import com.example.top10movies.util.Constants
+import com.example.top10movies.util.Constants.Companion.GLIDE_BASE_URL
 import com.example.top10movies.util.Constants.Companion.IMAGE_URL_BEGINNING
 import com.example.top10movies.util.Constants.Companion.IMAGE_URL_END
+import com.squareup.picasso.Picasso
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
@@ -34,32 +36,31 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.movieimage, parent, false)
-        return MovieViewHolder(view)
+        return MovieViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.movieimage,
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = differ.currentList[position]
-        holder.itemView.apply {
-            Log.d("debug", IMAGE_URL_BEGINNING + movie.id + IMAGE_URL_END)
+            holder.itemView.apply {
 
-            Thread {
-                this@MoviesActivity.runOnUiThread(java.lang.Runnable {
-                    Glide.with(this)
-                        .load(IMAGE_URL_BEGINNING + movie.id + IMAGE_URL_END)
-                        .placeholder(R.drawable.ic_launcher_background)
-                        .
-                        .into(holder.itemView.findViewById(R.id.movieImage))
-                })
-            }.start()
+            Glide.with(this)
+                .load(GLIDE_BASE_URL + movie.poster_path)
+                .placeholder(R.drawable.ic_launcher_background)
+                .into(holder.itemView.findViewById(R.id.movieImageView))
 
-            setOnClickListener {
-                onItemClickListener?.let {
-                    it(movie)
+                setOnClickListener {
+                    onItemClickListener?.let {
+                        it(movie)
+                    }
                 }
             }
         }
-    }
 
     override fun getItemCount(): Int {
         return differ.currentList.size
