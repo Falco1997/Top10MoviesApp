@@ -3,6 +3,7 @@ package com.example.top10movies.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +29,10 @@ class MoviesActivity : AppCompatActivity() {
         val movieRepo = MovieRepo()
         val viewModelProviderFactory = MovieViewModelProviderFactory(application, movieRepo)
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[MovieViewModel::class.java]
+
+        movieAdapter.setOnItemClickListener { movie ->
+            Toast.makeText(this, "you clicked " + movie.title, Toast.LENGTH_SHORT).show()
+        }
 
         viewModel.popularMovies.observe(this, Observer { response ->
             when (response) {
@@ -67,4 +72,5 @@ class MoviesActivity : AppCompatActivity() {
     private fun showLoadingBar() {
         // loadingBar.visibility = View.VISIBLE
     }
+
 }
