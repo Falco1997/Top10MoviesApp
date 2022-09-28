@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.top10movies.R
 import com.example.top10movies.api.data.Movie
 import com.example.top10movies.util.Constants.Companion.GLIDE_BASE_URL
@@ -16,6 +17,8 @@ import com.example.top10movies.util.Constants.Companion.GLIDE_BASE_URL
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    private val cornerRadius = 10
 
     private val differCallback = object : DiffUtil.ItemCallback<Movie>() {
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
@@ -32,7 +35,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.movieimage,
+                R.layout.movie_image,
                 parent,
                 false
             )
@@ -41,11 +44,12 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = differ.currentList[position]
-            holder.itemView.apply {
+        holder.itemView.apply {
 
             Glide.with(this)
                 .load(GLIDE_BASE_URL + movie.poster_path)
                 .placeholder(R.drawable.ic_launcher_background)
+                .transform(RoundedCorners(cornerRadius))
                 .into(holder.itemView.findViewById(R.id.movieImageView))
 
                 setOnClickListener {
