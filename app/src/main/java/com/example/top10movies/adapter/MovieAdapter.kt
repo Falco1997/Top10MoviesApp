@@ -1,10 +1,8 @@
 package com.example.top10movies.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +17,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     private val cornerRadius = 10
+    private val tenItems = 10
 
     private val differCallback = object : DiffUtil.ItemCallback<Movie>() {
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
@@ -61,7 +60,8 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         }
 
     override fun getItemCount(): Int {
-        return differ.currentList.size
+        // Limit list to 10 items
+        return differ.currentList.size.coerceAtMost(10)
     }
 
     private var onItemClickListener: ((Movie) -> Unit)? = null
