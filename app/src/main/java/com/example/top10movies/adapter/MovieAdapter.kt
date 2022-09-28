@@ -17,7 +17,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     private val cornerRadius = 10
-    private val tenItems = 10
+    private val maxItems = 10
 
     private val differCallback = object : DiffUtil.ItemCallback<Movie>() {
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
@@ -60,8 +60,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         }
 
     override fun getItemCount(): Int {
-        // Limit list to 10 items
-        return differ.currentList.size.coerceAtMost(10)
+        return differ.currentList.size.coerceAtMost(maxItems)
     }
 
     private var onItemClickListener: ((Movie) -> Unit)? = null

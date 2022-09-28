@@ -26,10 +26,10 @@ class MoviesActivity : AppCompatActivity() {
         setupRecyclerView()
 
         val movieRepo = MovieRepo()
-        val viewModelProviderFactory = MovieViewModelProviderFactory(movieRepo)
+        val viewModelProviderFactory = MovieViewModelProviderFactory(application, movieRepo)
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[MovieViewModel::class.java]
 
-        viewModel.trendingMovies.observe(this, Observer { response ->
+        viewModel.popularMovies.observe(this, Observer { response ->
             when (response) {
                 is Resource.Success -> {
                     hideLoadingBar()

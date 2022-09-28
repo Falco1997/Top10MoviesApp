@@ -15,36 +15,10 @@ class MovieDetailsActivity : AppCompatActivity() {
     lateinit var viewModel: MovieViewModel
     lateinit var movieAdapter: MovieAdapter
 
-    val TAG = "Break"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_details)
 
-        val movieRepo = MovieRepo()
-        val viewModelProviderFactory = MovieViewModelProviderFactory(movieRepo)
-        viewModel = ViewModelProvider(this, viewModelProviderFactory).get(MovieViewModel::class.java)
-
-        viewModel.trendingMovies.observe(this, Observer { response ->
-            when(response) {
-                is Resource.Success -> {
-                    hideLoadingBar()
-                    response.data?.let { newsResponse ->
-                        //movieAdapter.differ.submitList(newsResponse.articles)
-                    }
-                }
-                is Resource.Error -> {
-                    hideLoadingBar()
-                    response.message?.let { message ->
-                        Log.e(TAG, "Error: $message")
-                    }
-                }
-                is Resource.Loading -> {
-                    showLoadingBar()
-                }
-            }
-
-        })
     }
 
     private fun hideLoadingBar() {
