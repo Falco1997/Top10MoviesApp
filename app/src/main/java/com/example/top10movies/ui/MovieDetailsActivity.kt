@@ -9,7 +9,6 @@ import com.example.top10movies.ui.viewmodels.MovieViewModel
 class MovieDetailsActivity : AppCompatActivity() {
 
     lateinit var viewModel: MovieViewModel
-    lateinit var movieAdapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
