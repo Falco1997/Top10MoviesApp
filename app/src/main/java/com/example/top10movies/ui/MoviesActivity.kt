@@ -3,7 +3,6 @@ package com.example.top10movies.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -11,12 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.top10movies.adapter.MovieAdapter
 import com.example.top10movies.databinding.ActivityMoviesBinding
-import com.example.top10movies.repo.MovieRepo
-import com.example.top10movies.ui.viewmodels.MovieViewModel
+import com.example.top10movies.repo.MoviesRepo
+import com.example.top10movies.ui.viewmodels.MoviesViewModel
+import com.example.top10movies.util.Constants.Companion.MOVIES_TO_MOVIEDETAILS
 import com.example.top10movies.util.Resource
 
 class MoviesActivity : AppCompatActivity() {
-    lateinit var viewModel: MovieViewModel
+    lateinit var viewModel: MoviesViewModel
     lateinit var movieAdapter: MovieAdapter
 
     private lateinit var binding: ActivityMoviesBinding
@@ -29,14 +29,14 @@ class MoviesActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupRecyclerView()
 
-        val movieRepo = MovieRepo()
-        val viewModelProviderFactory = MovieViewModelProviderFactory(application, movieRepo)
-        viewModel = ViewModelProvider(this, viewModelProviderFactory)[MovieViewModel::class.java]
+        val moviesRepo = MoviesRepo()
+        val viewModelProviderFactory = MovieViewModelProviderFactory(application, moviesRepo)
+        viewModel = ViewModelProvider(this, viewModelProviderFactory)[MoviesViewModel::class.java]
 
         movieAdapter.setOnItemClickListener { movie ->
-            Toast.makeText(this, "you clicked " + movie.title, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "you clicked " + movie.title + "with id: " + movie.id, Toast.LENGTH_SHORT).show()
             val intent = Intent(this, MovieDetailsActivity::class.java).apply {
-                putExtra(EXTRA_MESSAGE, movie.id)
+                putExtra(MOVIES_TO_MOVIEDETAILS, movie.id.toString())
             }
             startActivity(intent)
         }

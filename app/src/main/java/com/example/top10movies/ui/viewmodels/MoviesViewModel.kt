@@ -10,7 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.top10movies.Top10MoviesApp
 import com.example.top10movies.api.data.MoviesResult
-import com.example.top10movies.repo.MovieRepo
+import com.example.top10movies.repo.MoviesRepo
 import com.example.top10movies.util.Constants.Companion.API_KEY
 import com.example.top10movies.util.Constants.Companion.JSON_PARSING_ERROR
 import com.example.top10movies.util.Constants.Companion.NETWORK_FAILURE
@@ -20,9 +20,9 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.io.IOException
 
-class MovieViewModel(
+class MoviesViewModel(
     app: Application,
-    val movieRepo: MovieRepo
+    val moviesRepo: MoviesRepo
 ) : AndroidViewModel(app) {
 
     val popularMovies: MutableLiveData<Resource<MoviesResult>> = MutableLiveData()
@@ -49,7 +49,7 @@ class MovieViewModel(
         popularMovies.postValue(Resource.Loading())
         try {
             if (hasInternetConnection()) {
-                val response = movieRepo.getTrendingMovies(apiKey)
+                val response = moviesRepo.getPopularMovies(apiKey)
                 popularMovies.postValue(handleMovieResult(response))
             } else {
                 popularMovies.postValue(Resource.Error(NO_INTERNET))
