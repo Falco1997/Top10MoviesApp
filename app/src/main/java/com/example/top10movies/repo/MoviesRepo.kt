@@ -7,4 +7,7 @@ class MoviesRepo {
     suspend fun getPopularMovies(apiKey: String) =
         RetrofitInstance.movieApi.getPopularMovies(apiKey)
 
+    suspend fun getMovieDetailsById(apiKey: String, movieId: String) =
+        RetrofitInstance.movieApi.getMovieDetailsById(movieId, apiKey)
+
 }

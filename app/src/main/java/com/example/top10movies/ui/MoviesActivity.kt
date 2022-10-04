@@ -12,6 +12,7 @@ import com.example.top10movies.adapter.MovieAdapter
 import com.example.top10movies.databinding.ActivityMoviesBinding
 import com.example.top10movies.repo.MoviesRepo
 import com.example.top10movies.ui.viewmodels.MoviesViewModel
+import com.example.top10movies.util.Constants.Companion.API_KEY
 import com.example.top10movies.util.Constants.Companion.MOVIES_TO_MOVIEDETAILS
 import com.example.top10movies.util.Resource
 
@@ -35,13 +36,9 @@ class MoviesActivity : AppCompatActivity() {
 
         movieAdapter.setOnItemClickListener { movie ->
             Toast.makeText(this, "you clicked " + movie.title + "with id: " + movie.id, Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MovieDetailsActivity::class.java).apply {
-                putExtra(MOVIES_TO_MOVIEDETAILS, movie.id.toString())
-            }
-            startActivity(intent)
         }
 
-        viewModel.popularMovies.observe(this, Observer { response ->
+        viewModel.movies.observe(this, Observer { response ->
             when (response) {
                 is Resource.Success -> {
                     hideLoadingBar()

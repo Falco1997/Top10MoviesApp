@@ -15,9 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Top10Movies" >
         <activity
-            android:name=".ui.MovieDetailsActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.MoviesActivity"
             android:exported="true" >
             <intent-filter>
