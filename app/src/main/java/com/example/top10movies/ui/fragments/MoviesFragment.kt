@@ -41,6 +41,9 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         setupRecyclerView()
 
         movieAdapter.setOnItemClickListener {
+
+            viewModel.getMovieDetailsById(API_KEY, it.id.toString())
+
             findNavController().navigate(
                 R.id.action_moviesFragment_to_movieDetailsFragment
             )
