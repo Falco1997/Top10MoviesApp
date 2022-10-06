@@ -41,7 +41,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         setupRecyclerView()
 
         movieAdapter.setOnItemClickListener {
-            Toast.makeText(context, "test", Toast.LENGTH_SHORT).show()
             findNavController().navigate(
                 R.id.action_moviesFragment_to_movieDetailsFragment
             )
