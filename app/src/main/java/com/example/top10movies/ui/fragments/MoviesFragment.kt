@@ -15,6 +15,7 @@ import com.example.top10movies.adapter.MovieAdapter
 import com.example.top10movies.databinding.FragmentMoviesBinding
 import com.example.top10movies.ui.MoviesActivity
 import com.example.top10movies.ui.viewmodels.MoviesViewModel
+import com.example.top10movies.util.Constants.Companion.API_KEY
 import com.example.top10movies.util.Resource
 
 class MoviesFragment : Fragment(R.layout.fragment_movies) {
@@ -46,22 +47,30 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
             )
         }
 
-        viewModel.movies.observe(this, Observer { response ->
+        binding.moviesErrorButton.setOnClickListener {
+            viewModel.getPopularMovies(API_KEY)
+        }
+
+        viewModel.movies.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {
                     hideLoadingBar()
+                    hideErrorUI()
                     response.data?.let { movieResponse ->
                         movieAdapter.differ.submitList(movieResponse.movies)
                     }
                 }
                 is Resource.Error -> {
                     hideLoadingBar()
+                    showErrorUI()
                     response.message?.let { message ->
-                        // Log
+                        hideLoadingBar()
+                        binding.moviesErrorText.text = message
                     }
                 }
                 is Resource.Loading -> {
                     showLoadingBar()
+                    hideErrorUI()
                 }
             }
 
@@ -77,11 +86,21 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     }
 
     private fun showLoadingBar() {
-
+        binding.moviesProgressBar.visibility = View.VISIBLE
     }
 
     private fun hideLoadingBar() {
+        binding.moviesProgressBar.visibility = View.INVISIBLE
+    }
 
+    private fun showErrorUI() {
+        binding.moviesErrorText.visibility = View.VISIBLE
+        binding.moviesErrorButton.visibility = View.VISIBLE
+    }
+
+    private fun hideErrorUI() {
+        binding.moviesErrorText.visibility = View.INVISIBLE
+        binding.moviesErrorButton.visibility = View.INVISIBLE
     }
 
 }

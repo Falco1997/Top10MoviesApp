@@ -47,7 +47,6 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
             Glide.with(this)
                 .load(GLIDE_BASE_URL + movie.poster_path)
-                .placeholder(R.drawable.ic_launcher_background)
                 .transform(RoundedCorners(cornerRadius))
                 .into(holder.itemView.findViewById(R.id.movieImageView))
 
