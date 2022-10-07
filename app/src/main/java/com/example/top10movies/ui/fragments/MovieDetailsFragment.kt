@@ -91,7 +91,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
         Glide.with(this)
             .load(GLIDE_BASE_URL_SMALL + movieDetails.poster_path)
             .transform(RoundedCorners(10))
-            .override(600, 200)
+            //.override(400, 150)
             .into(binding.movieDetailsImageView)
     }
 
