@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,7 @@ import com.example.top10movies.databinding.FragmentMoviesBinding
 import com.example.top10movies.ui.MoviesActivity
 import com.example.top10movies.ui.viewmodels.MoviesViewModel
 import com.example.top10movies.util.Constants.Companion.API_KEY
+import com.example.top10movies.util.Constants.Companion.MOVIE_ID_KEY
 import com.example.top10movies.util.Resource
 
 class MoviesFragment : Fragment(R.layout.fragment_movies) {
@@ -41,9 +44,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         setupRecyclerView()
 
         movieAdapter.setOnItemClickListener {
-
-            viewModel.getMovieDetailsById(API_KEY, it.id.toString())
-
+            setFragmentResult(MOVIE_ID_KEY, bundleOf("movieId" to it.id.toString()))
             findNavController().navigate(
                 R.id.action_moviesFragment_to_movieDetailsFragment
             )

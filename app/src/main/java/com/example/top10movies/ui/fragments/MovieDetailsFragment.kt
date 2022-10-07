@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -15,6 +18,7 @@ import com.example.top10movies.ui.MoviesActivity
 import com.example.top10movies.ui.viewmodels.MoviesViewModel
 import com.example.top10movies.util.Constants.Companion.API_KEY
 import com.example.top10movies.util.Constants.Companion.GLIDE_BASE_URL
+import com.example.top10movies.util.Constants.Companion.MOVIE_ID_KEY
 import com.example.top10movies.util.Resource
 
 
@@ -22,6 +26,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
     lateinit var viewModel: MoviesViewModel
     lateinit var binding: FragmentMovieDetailsBinding
+    lateinit var movieId: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,12 +41,16 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MoviesActivity).viewModel
-/*
-        val movieId = Bundle().getSerializable("movieId")
-        if (movieId != null) {
-            viewModel.getMovieDetailsById(API_KEY, movieId as String)
+
+        setFragmentResultListener(MOVIE_ID_KEY) { key, bundle ->
+            movieId = bundle.getString("movieId").toString()
+            viewModel.getMovieDetailsById(API_KEY, movieId)
         }
-*/
+
+        binding.movieDetailsErrorButton.setOnClickListener {
+            viewModel.getMovieDetailsById(API_KEY, movieId)
+        }
+
         viewModel.movieDetails.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {
@@ -56,7 +65,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
                     showErrorUI()
                     response.message?.let { message ->
                         hideLoadingBar()
-                        //binding.moviesErrorText.text = message
+                        binding.movieDetailsErrorText.text = message
                     }
                 }
                 is Resource.Loading -> {
@@ -68,6 +77,11 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
         })
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.movieDetailsImageView.visibility = View.INVISIBLE
+    }
+
     private fun showMovieDetails(movieDetails: MovieDetails) {
         binding.movieDetailsName.text = movieDetails.title
         binding.movieDetailsReleaseDate.text = movieDetails.release_date
@@ -76,26 +90,27 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
         Glide.with(this)
             .load(GLIDE_BASE_URL + movieDetails.poster_path)
-            .transform(RoundedCorners(5))
+            .transform(RoundedCorners(10))
             .into(binding.movieDetailsImageView)
+        binding.movieDetailsImageView.visibility = View.VISIBLE
     }
 
     private fun showLoadingBar() {
-        //binding.moviesProgressBar.visibility = View.VISIBLE
+        binding.movieDetailsProgressBar.visibility = View.VISIBLE
     }
 
     private fun hideLoadingBar() {
-        //binding.moviesProgressBar.visibility = View.INVISIBLE
+        binding.movieDetailsProgressBar.visibility = View.INVISIBLE
     }
 
     private fun showErrorUI() {
-        //binding.moviesErrorText.visibility = View.VISIBLE
-        //binding.moviesErrorButton.visibility = View.VISIBLE
+        binding.movieDetailsErrorText.visibility = View.VISIBLE
+        binding.movieDetailsErrorButton.visibility = View.VISIBLE
     }
 
     private fun hideErrorUI() {
-        //binding.moviesErrorText.visibility = View.INVISIBLE
-        //binding.moviesErrorButton.visibility = View.INVISIBLE
+        binding.movieDetailsErrorText.visibility = View.INVISIBLE
+        binding.movieDetailsErrorButton.visibility = View.INVISIBLE
     }
 
 }

@@ -8,7 +8,7 @@ class Constants {
         const val GLIDE_BASE_URL = "https://image.tmdb.org/t/p/w500/"
 
         // Activity traversing
-        const val MOVIES_TO_MOVIEDETAILS = "MOVIES_TO_MOVIEDETAILS"
+        const val MOVIE_ID_KEY = "MOVIE_ID_KEY"
 
         // Error texts
         const val NO_INTERNET = "No internet connection"
