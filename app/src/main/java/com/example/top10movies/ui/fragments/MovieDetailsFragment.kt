@@ -4,20 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
 import com.example.top10movies.R
 import com.example.top10movies.api.data.MovieDetails
 import com.example.top10movies.databinding.FragmentMovieDetailsBinding
 import com.example.top10movies.ui.MoviesActivity
 import com.example.top10movies.ui.viewmodels.MoviesViewModel
 import com.example.top10movies.util.Constants.Companion.API_KEY
-import com.example.top10movies.util.Constants.Companion.GLIDE_BASE_URL
+import com.example.top10movies.util.Constants.Companion.GLIDE_BASE_URL_SMALL
 import com.example.top10movies.util.Constants.Companion.MOVIE_ID_KEY
 import com.example.top10movies.util.Resource
 
@@ -79,7 +78,8 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding.movieDetailsImageView.visibility = View.INVISIBLE
+        Glide.with(this)
+            .clear(binding.movieDetailsImageView)
     }
 
     private fun showMovieDetails(movieDetails: MovieDetails) {
@@ -89,10 +89,10 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
         binding.movieDetailsDescription.text = movieDetails.homepage
 
         Glide.with(this)
-            .load(GLIDE_BASE_URL + movieDetails.poster_path)
+            .load(GLIDE_BASE_URL_SMALL + movieDetails.poster_path)
             .transform(RoundedCorners(10))
+            .override(600, 200)
             .into(binding.movieDetailsImageView)
-        binding.movieDetailsImageView.visibility = View.VISIBLE
     }
 
     private fun showLoadingBar() {

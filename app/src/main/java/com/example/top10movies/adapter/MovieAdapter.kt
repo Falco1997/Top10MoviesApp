@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.top10movies.R
 import com.example.top10movies.api.data.Movie
-import com.example.top10movies.util.Constants.Companion.GLIDE_BASE_URL
+import com.example.top10movies.util.Constants.Companion.GLIDE_BASE_URL_LARGE
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
@@ -46,7 +46,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         holder.itemView.apply {
 
             Glide.with(this)
-                .load(GLIDE_BASE_URL + movie.poster_path)
+                .load(GLIDE_BASE_URL_LARGE + movie.poster_path)
                 .transform(RoundedCorners(cornerRadius))
                 .into(holder.itemView.findViewById(R.id.movieImageView))
 
