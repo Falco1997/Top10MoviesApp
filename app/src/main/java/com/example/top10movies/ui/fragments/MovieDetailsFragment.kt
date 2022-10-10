@@ -78,8 +78,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Glide.with(this)
-            .clear(binding.movieDetailsImageView)
+
     }
 
     private fun showMovieDetails(movieDetails: MovieDetails) {
@@ -91,7 +90,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
         Glide.with(this)
             .load(GLIDE_BASE_URL_SMALL + movieDetails.poster_path)
             .transform(RoundedCorners(10))
-            //.override(400, 150)
+            //.override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
             .into(binding.movieDetailsImageView)
     }
 
