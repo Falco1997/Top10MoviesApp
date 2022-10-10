@@ -9,7 +9,7 @@ data class MovieDetails(
     @SerializedName("budget") val budget: Int,
     @SerializedName("genres") val genres: List<Genre>,
     @SerializedName("homepage") val homepage: String,
-    @SerializedName("id") val id: Int,
+    @SerializedName("id") val id: String,
     @SerializedName("imdb_id") val imdb_id: String,
     @SerializedName("original_language") val original_language: String,
     @SerializedName("original_title") val original_title: String,
