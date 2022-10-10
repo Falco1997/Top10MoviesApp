@@ -24,7 +24,6 @@ import java.io.IOException
 class MoviesViewModel(
     app: Application,
     val moviesRepo: MoviesRepo,
-    //val movieDetailsRepo: MovieDetailsRepo
 ) : AndroidViewModel(app) {
 
     val movies: MutableLiveData<Resource<MoviesResult>> = MutableLiveData()
@@ -41,7 +40,6 @@ class MoviesViewModel(
     private fun handleMovieResult(response: Response<MoviesResult>) : Resource<MoviesResult> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                Log.d("debug", "movieList size: " + resultResponse.movies.size.toString())
                 return Resource.Success(resultResponse)
             }
         }

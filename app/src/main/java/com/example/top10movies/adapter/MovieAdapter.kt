@@ -16,7 +16,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    private val cornerRadius = 10
+    private val cornerRadius = 20
     private val maxItems = 10
 
     private val differCallback = object : DiffUtil.ItemCallback<Movie>() {
