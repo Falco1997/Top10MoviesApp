@@ -1,7 +1,5 @@
 package com.example.top10movies.util
 
-import android.util.Log
-
 object MovieUtil {
 
     /**
@@ -12,15 +10,19 @@ object MovieUtil {
      */
 
     fun validateMovieId(id: String): Boolean {
+        if (!isNumericWithoutDecimals(id)) return false
         if (id.length > 7) return false
         if (id.isEmpty()) return false
-        if (isNotNumeric(id)) return false
         return true
     }
 
-    private fun isNotNumeric(toCheck: String): Boolean {
-        Log.d("test", toCheck)
-        return toCheck.toDoubleOrNull() == null
+    private fun isNumericWithoutDecimals(toCheck: String): Boolean {
+        return try {
+            toCheck.toInt()
+            true
+        } catch (e: java.lang.NumberFormatException) {
+            false
+        }
     }
 
 }
