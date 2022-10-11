@@ -23,7 +23,8 @@ class MovieUtilTest {
         assertThat(result).isFalse()
     }
 
-    @Test fun `ID is in correct format returns true`() {
+    @Test
+    fun `ID is in correct format returns true`() {
         val result = MovieUtil.validateMovieId("123456")
         assertThat(result).isTrue()
     }
