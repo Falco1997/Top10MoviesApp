@@ -9,6 +9,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.top10movies.BuildConfig
 import com.example.top10movies.R
 import com.example.top10movies.api.data.MovieDetails
 import com.example.top10movies.databinding.FragmentMovieDetailsBinding
